@@ -10,14 +10,14 @@ def to_html():
     fr_to_html()
 
 def en_to_html():
-    final_result = open("percntages_of_site_visits_prov_terr_en.txt", "w")
+    final_result = open("percentages_of_site_visits_prov_terr_en.txt", "w")
     create_en_intro(final_result)
     get_prov_terr_en(final_result)
     create_en_graph(final_result)
     final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")
 
 def fr_to_html():
-    final_result = open("percntages_of_site_visits_prov_terr_fr.txt", "w")
+    final_result = open("percentages_of_site_visits_prov_terr_fr.txt", "w")
     create_fr_intro(final_result)
     get_prov_terr_fr(final_result)
     create_fr_graph(final_result)
