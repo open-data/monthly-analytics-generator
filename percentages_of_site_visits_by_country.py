@@ -5,7 +5,7 @@ import csv
 import re
 import datetime
 
-COLOURS = ["(143, 31, 23)", "(240, 131, 0)", "(36, 124, 168)", "(91, 46, 108)", "(38, 83, 38)"
+COLOURS = ["(143, 31, 23)", "(240, 131, 0)", "(36, 124, 168)", "(91, 46, 108)", "(38, 83, 38)",
 "(18, 64, 86)", "(85, 85, 85)", "(247, 212, 0)", "(217, 59, 50)", "(62, 134, 62)"]
 
 def to_html():
@@ -47,7 +47,7 @@ def get_country_en(final_result):
         country_csv = csv.reader(f)
         next(country_csv, None)
 
-        for x in range(0, 10):
+        for x in range(10):
             row = next(country_csv, None)
             country_en = re.split('\| |, |\/', row[0])[0]
             final_result.write("<th scope=\"col\">"+ country_en + "</th>\n")
@@ -61,7 +61,7 @@ def get_country_fr(final_result):
         country_csv = csv.reader(f)
         next(country_csv, None)
 
-        for x in range(0, 10):
+        for x in range(10):
             row = next(country_csv, None)
             country_fr = re.split('\| |, |\/', row[0])[1]
             final_result.write("<th scope=\"col\">"+ country_fr + "</th>\n")
@@ -76,7 +76,7 @@ def create_en_graph(final_result):
         next(country_csv, None)
         decimal = 0.0
 
-        for x in range(0, 10):
+        for x in range(10):
             row = next(country_csv, None)
             decimal = float(row[2].split("%", 1)[0])
             final_result.write("<td class=\"text-center\">"+ str(decimal) + "</td>\n")
@@ -94,7 +94,7 @@ def create_en_graph(final_result):
         country_csv = csv.reader(f)
         next(country_csv, None)
 
-        for x in range(0, 10):
+        for x in range(10):
             row = next(country_csv, None)
             final_result.write("<tr><td class=\"text-left\" style=\"background-color: rgb" + COLOURS[x] +";\">&nbsp;</td><td class=\"text-left\">"+ re.split('\| |, |\/', row[0])[0] + "</td><td class=\"text-center\">" + '{:,}'.format(int(row[1])) + 
             "</td><td class=\"text-center\">" + row[2] + "</td></tr>\n")
@@ -108,7 +108,7 @@ def create_fr_graph(final_result):
         next(country_csv, None)
         decimal = 0.0
 
-        for x in range(0, 10):
+        for x in range(10):
             row = next(country_csv, None)
             decimal = float(row[2].split("%", 1)[0])
             final_result.write("<td class=\"text-center\">"+ str(decimal) + "</td>\n")
@@ -126,7 +126,7 @@ def create_fr_graph(final_result):
         next(country_csv, None)
         fr_value = ""
 
-        for x in range(0, 10):
+        for x in range(10):
             row = next(country_csv, None)
             fr_value = row[2].split(".", 1)[0] + "," + row[2].split(".", 1)[1]
             final_result.write("<tr><td class=\"text-left\" style=\"background-color: rgb" + COLOURS[x] +";\">&nbsp;</td><td class=\"text-left\">"+ re.split('\| |, |\/', row[0])[1] + "</td><td class=\"text-center\">" + '{:,}'.format(int(row[1])).replace(',', ' ') + 
