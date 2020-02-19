@@ -4,6 +4,8 @@
 import csv
 import datetime
 
+COLOURS = ["(143, 31, 23)", "(240, 131, 0)", "(36, 124, 168)", "(91, 46, 108)", "(38, 83, 38)"
+"(18, 64, 86)", "(85, 85, 85)", "(247, 212, 0)", "(217, 59, 50)", "(62, 134, 62)"]
 
 def to_html():
     en_to_html()
@@ -88,7 +90,8 @@ def create_en_graph(final_result):
         next(monthly_usage, None)
 
         for row in monthly_usage:
-            final_result.write("<tr><td class=\"text-left\" style=\"background-color: rgb(143, 31, 23);\">&nbsp;</td><td class=\"text-left\">"+ row[0].split("|", 1)[0] + "</td><td class=\"text-center\">" + '{:,}'.format(int(row[1])) + 
+            count = 0
+            final_result.write("<tr><td class=\"text-left\" style=\"background-color: rgb"+ COLOURS[count] +";\">&nbsp;</td><td class=\"text-left\">"+ row[0].split("|", 1)[0] + "</td><td class=\"text-center\">" + '{:,}'.format(int(row[1])) + 
             "</td><td class=\"text-center\">" + row[2] + "</td></tr>\n")
 
 def create_fr_graph(final_result):
@@ -115,8 +118,9 @@ def create_fr_graph(final_result):
         fr_value = ""
 
         for row in monthly_usage:
+            count = 0
             fr_value = row[2].split(".", 1)[0] + "," + row[2].split(".", 1)[1]
-            final_result.write("<tr><td class=\"text-left\" style=\"background-color: rgb(143, 31, 23);\">&nbsp;</td><td class=\"text-left\">"+ row[0].split("|", 1)[1] + "</td><td class=\"text-center\">" + '{:,}'.format(int(row[1])).replace(',', ' ') + 
+            final_result.write("<tr><td class=\"text-left\" style=\"background-color: rgb"+ COLOURS[count] +";\">&nbsp;</td><td class=\"text-left\">"+ row[0].split("|", 1)[1] + "</td><td class=\"text-center\">" + '{:,}'.format(int(row[1])).replace(',', ' ') + 
             "</td><td class=\"text-center\">" + fr_value + "</td></tr>\n")
         
 

@@ -13,24 +13,24 @@ def to_html():
     fr_to_html()
 
 def en_to_html():
-    final_result = open("percentages_of_site_visits_country_en.txt", "w")
+    final_result = open("percentages_of_site_visits_by_foreign_country_en.txt", "w")
     create_en_intro(final_result)
     get_country_en(final_result)
     create_en_graph(final_result)
     final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")
 
 def fr_to_html():
-    final_result = open("percentages_of_site_visits_country_fr.txt", "w")
+    final_result = open("percentages_of_site_visits_by_foreign_country_fr.txt", "w")
     create_fr_intro(final_result)
     get_country_fr(final_result)
     create_fr_graph(final_result)
     final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")
 
 def create_en_intro(final_result):
-    intro = """<section><h2 class="mrgn-tp-xl" id="country">Percentages of Site Visits by Country</h2>
-    <p>This graph illustrates the percentage of total of visits the Open Government Portal has received by country.</p>
+    intro = """<section><h2 class="mrgn-tp-xl" id="visiting">Percentages of Site Visits by Foreign Country</h2>
+    <p>This graph illustrates the percentage of total of visits the Open Government Portal has by foreign country.</p>
     <table class="wb-charts wb-charts-pie table" style="display: none;" data-flot='{"series": { "pie": { "radius": 1,"label": { "radius": 1,"show": true, "threshold": 0.01 }, "innerRadius": 0.35 } }, "grid": { "hoverable": true }, "legend": {"show":false} } ' data-wb-charts='{ "height": 550, "decimal": 1, "noencapsulation": true }'>
-    <caption>Percentages of Site Visits by Country</caption><thead><tr><th>&nbsp;</th>\n"""
+    <caption>Percentages of Site Visits by Foreign Country</caption><thead><tr><th>&nbsp;</th>\n"""
     final_result.write(intro)
 
 def create_fr_intro(final_result):
@@ -51,7 +51,7 @@ def get_country_en(final_result):
             row = next(country_csv, None)
             country_en = re.split('\| |, |\/', row[0])[0]
             final_result.write("<th scope=\"col\">"+ country_en + "</th>\n")
-    final_result.write("<th scope=\"col\">Other</th></tr></thead><tbody><tr><th scope=\"row\">Percentages of Site Visits by Country</th>")
+    final_result.write("<th scope=\"col\">Other</th></tr></thead><tbody><tr><th scope=\"row\">Percentages of Site Visits by Foreign Country</th>")
 
 
 def get_country_fr(final_result):
@@ -86,9 +86,9 @@ def create_en_graph(final_result):
     final_result.write("<td class=\"text-center\">" + str(100-total) + "</td>")
     final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")
     
-    final_result.write("""<div class="table-responsive"><table class="table"><caption class="text-left"><strong>Total and percentages of site visits by Country</strong></caption>
+    final_result.write("""<div class="table-responsive"><table class="table"><caption class="text-left"><strong>Total and percentages of Site Visits by Foreign Country</strong></caption>
     <thead><tr><th class="text-center" style="width: 50px;" scope="col">Chart colour</th><th class="text-left" scope="col">Country</th><th class="text-center" scope="col">Visits</th><th class="text-center" scope="col">Percentage of Total Visits</th></tr></thead>
-    <tfoot><tr><th class="text-left" colspan="2" scope="row">Total Number of Visits</th><td class="text-center"><strong>""" + '{:,}'.format(total_all()) + """</strong></td><td class="text-center">&nbsp;</td></tr></tfoot><tbody>""")
+    <tfoot><tr><th class="text-left" colspan="2" scope="row">Total Number of Visits by Foreign Countries</th><td class="text-center"><strong>""" + '{:,}'.format(total_all()) + """</strong></td><td>&nbsp;</td></tr></tfoot><tbody>""")
 
     with open("openDataPortal.siteAnalytics.internationalUsageBreakdown.bilingual.csv", 'rb') as f:
         country_csv = csv.reader(f)
