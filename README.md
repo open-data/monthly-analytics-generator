@@ -17,8 +17,10 @@ You will need:
 
 2) Download this repo https://github.com/open-data/monthly-analytics-generator/archive/master.zip and unzip it. Place the CSV files you've just downloaded into the same folder as the unzipped repo. 
 
-3) run `python create_html_analytics.py`
+3) run `pip install pyyaml`
 
-4) Copy all HTML from the final **two** `.txt` files generated and paste this in the Drupal `source` section of the editing admin on https://open.canada.ca/en/content/open-government-analytics. Each file contains one language, so paste the HTML from the file ending in `en` on the English page, and the HTML from the file ending in `fr` on the French page.
+4) run `python create_html_analytics.py`
 
-5) Submit these as **drafts** first to ensure everything looks correct. Once confirmed, save the pages as newly published content.
+5) Copy all HTML from the final **two** `.txt` files generated and paste this in the Drupal `source` section of the editing admin on https://open.canada.ca/en/content/open-government-analytics. Each file contains one language, so paste the HTML from the file ending in `en` on the English page, and the HTML from the file ending in `fr` on the French page.
+
+6) Submit these as **drafts** first to ensure everything looks correct. Once confirmed, save the pages as newly published content.
