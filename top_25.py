@@ -3,7 +3,6 @@
 
 import csv, datetime, yaml
 
-html_helper = yaml.load(open('html_helper.yml', 'r'))
 
 def to_html():
     en_to_html()
@@ -62,7 +61,7 @@ def get_rows_en(final_result):
             row = next(monthly_usage, None)
             final_result.write("<tr><th scope=\"row\"><a href=\"/data/en/dataset/" + row[0] + "\">" + row[1] + "</a></th><td>" + row[3] + 
                 "</td><td class=\"text-center\">" + '{:,}'.format(int(row[5])) + "</td></tr>\n")
-        final_result.write(html_helper.get('section_cut'))
+        final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")
 
 def get_rows_fr(final_result):
     final_result_string = []
@@ -75,4 +74,4 @@ def get_rows_fr(final_result):
             row = next(monthly_usage, None)
             final_result.write("<tr><th scope=\"row\"><a href=\"/data/en/dataset/" + row[0] + "\">" + row[2] + "</a></th><td>" + row[4] + 
                 "</td><td class=\"text-center\">" + '{:,}'.format(int(row[5])).replace(',', ' ') + "</td></tr>\n")
-        final_result.write(html_helper.get('section_cut'))
+        final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")

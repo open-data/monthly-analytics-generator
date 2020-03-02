@@ -4,8 +4,6 @@
 import csv, datetime, yaml
 from dateutil import relativedelta
 
-html_helper = yaml.load(open('html_helper.yml', 'r'))
-
 def to_html():
     en_to_html()
     fr_to_html()
@@ -65,7 +63,7 @@ def get_rows_en(final_result):
             + '{:,}'.format(int(row[7])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[8])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[9])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[10])) +"</td><td class=\"text-left\">"
             + '{:,}'.format(int(row[11])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[12])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[13])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[14])) +"</td><td class=\"text-left\">"
             + '{:,}'.format(int(row[15])) +"</td></strong></td></tr>")
-        final_result.write(html_helper.get('section_cut'))
+        final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")
 
 def get_rows_fr(final_result):
     final_result_string = []
@@ -98,7 +96,7 @@ def get_rows_fr(final_result):
             + '{:,}'.format(int(row[7])).replace(',', ' ') +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[8])).replace(',', ' ') +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[9])).replace(',', ' ') +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[10])).replace(',', ' ') +"</td><td class=\"text-left\">"
             + '{:,}'.format(int(row[11])).replace(',', ' ') +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[12])).replace(',', ' ') +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[13])).replace(',', ' ') +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[14])).replace(',', ' ') +"</td><td class=\"text-left\">"
             + '{:,}'.format(int(row[15])).replace(',', ' ') +"</td></strong></td></tr>")
-        final_result.write(html_helper.get('section_cut'))
+        final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")
 
 def format_dates_en(final_result):
     dt = datetime.datetime.today()

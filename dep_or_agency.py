@@ -3,8 +3,6 @@
 
 import csv, datetime, yaml
 
-html_helper = yaml.load(open('html_helper.yml', 'r'))
-
 def to_html():
     en_to_html()
     fr_to_html()
@@ -62,7 +60,7 @@ def get_rows_en(final_result):
             final_result.write("<tr><th scope=\"row\"><a href=\"" + row[2] + "\">" + row[0] + "</a></th><td class=\"text-center\">" + '{:,}'.format(int(row[4])) + "</td></tr>\n")
             total += int(row[4])
         final_result.write("<tfoot><tr><th class=\"text-left\" scope=\"row\">Total</th><td class=\"text-center\">" + '{:,}'.format(int(total)) + "</td></tr></tfoot>")
-        final_result.write(html_helper.get('section_cut'))
+        final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")
 
 def get_rows_fr(final_result):
     with open("openDataPortal.siteAnalytics.datasetsByOrg.bilingual.csv", 'rb') as f:
@@ -74,4 +72,4 @@ def get_rows_fr(final_result):
             final_result.write("<tr><th scope=\"row\"><a href=\"" + row[3] + "\">" + row[1] + "</a></th><td class=\"text-center\">" + '{:,}'.format(int(row[4])).replace(',', ' ') + "</td></tr>\n")
             total += int(row[4])
         final_result.write("<tfoot><tr><th class=\"text-left\" scope=\"row\">Total</th><td class=\"text-center\">" + '{:,}'.format(total).replace(',', ' ')  + "</td></tr></tfoot>")
-        final_result.write(html_helper.get('section_cut'))
+        final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")
