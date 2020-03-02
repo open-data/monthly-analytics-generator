@@ -44,6 +44,7 @@ def get_country_en(final_result):
     with open("openDataPortal.siteAnalytics.internationalUsageBreakdown.bilingual.csv", 'rb') as f:
         country_csv = csv.reader(f)
         next(country_csv, None)
+        next(country_csv, None)
 
         for x in range(10):
             row = next(country_csv, None)
@@ -58,6 +59,7 @@ def get_country_fr(final_result):
     with open("openDataPortal.siteAnalytics.internationalUsageBreakdown.bilingual.csv", 'rb') as f:
         country_csv = csv.reader(f)
         next(country_csv, None)
+        next(country_csv, None)
 
         for x in range(10):
             row = next(country_csv, None)
@@ -71,6 +73,7 @@ def create_en_graph(final_result):
 
     with open("openDataPortal.siteAnalytics.internationalUsageBreakdown.bilingual.csv", 'rb') as f:
         country_csv = csv.reader(f)
+        next(country_csv, None)
         next(country_csv, None)
         decimal = 0.0
 
@@ -91,6 +94,7 @@ def create_en_graph(final_result):
     with open("openDataPortal.siteAnalytics.internationalUsageBreakdown.bilingual.csv", 'rb') as f:
         country_csv = csv.reader(f)
         next(country_csv, None)
+        next(country_csv, None)
 
         for x in range(10):
             row = next(country_csv, None)
@@ -103,6 +107,7 @@ def create_fr_graph(final_result):
     total = 0
     with open("openDataPortal.siteAnalytics.internationalUsageBreakdown.bilingual.csv", 'rb') as f:
         country_csv = csv.reader(f)
+        next(country_csv, None)
         next(country_csv, None)
         decimal = 0.0
 
@@ -123,6 +128,7 @@ def create_fr_graph(final_result):
     with open("openDataPortal.siteAnalytics.internationalUsageBreakdown.bilingual.csv", 'rb') as f:
         country_csv = csv.reader(f)
         next(country_csv, None)
+        next(country_csv, None)
         fr_value = ""
 
         for x in range(10):
@@ -136,6 +142,8 @@ def total_all():
     with open("openDataPortal.siteAnalytics.internationalUsageBreakdown.bilingual.csv", 'rb') as f:
         country_csv = csv.reader(f)
         next(country_csv, None)
+        next(country_csv, None)
+        
         total = 0
 
         for row in country_csv:
