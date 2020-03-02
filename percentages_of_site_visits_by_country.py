@@ -1,8 +1,9 @@
 # This reads visits from openDataPortal.siteAnalytics.internationalUsageBreakdown.bilingual.csv
 # coding=utf-8
 
-import csv
-import re
+import csv, re, yaml
+
+html_helper = yaml.load(open('html_helper.yml', 'r'))
 
 COLOURS = ["(143, 31, 23)", "(240, 131, 0)", "(36, 124, 168)", "(91, 46, 108)", "(38, 83, 38)",
 "(18, 64, 86)", "(85, 85, 85)", "(247, 212, 0)", "(217, 59, 50)", "(62, 134, 62)"]
@@ -16,14 +17,14 @@ def en_to_html():
     create_en_intro(final_result)
     get_country_en(final_result)
     create_en_graph(final_result)
-    final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")
+    final_result.write(html_helper.get('section_cut'))
 
 def fr_to_html():
     final_result = open("percentages_of_site_visits_country_fr.txt", "w")
     create_fr_intro(final_result)
     get_country_fr(final_result)
     create_fr_graph(final_result)
-    final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")
+    final_result.write(html_helper.get('section_cut'))
 
 def create_en_intro(final_result):
     intro = """<section><h2 class="mrgn-tp-xl" id="country">Percentages of Site Visits by Country</h2>
@@ -83,7 +84,7 @@ def create_en_graph(final_result):
             total += decimal
 
     final_result.write("<td class=\"text-center\">" + str(100-total) + "</td>")
-    final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")
+    final_result.write(html_helper.get('section_cut'))
     
     final_result.write("""<div class="table-responsive"><table class="table"><caption class="text-left"><strong>Total and percentages of site visits by Country</strong></caption>
     <thead><tr><th class="text-center" style="width: 50px;" scope="col">Chart colour</th><th class="text-left" scope="col">Country</th><th class="text-center" scope="col">Visits</th><th class="text-center" scope="col">Percentage of Total Visits</th></tr></thead>
@@ -97,7 +98,7 @@ def create_en_graph(final_result):
             row = next(country_csv, None)
             final_result.write("<tr><td class=\"text-left\" style=\"background-color: rgb" + COLOURS[x] +";\">&nbsp;</td><td class=\"text-left\">"+ re.split('\| |, |\/', row[0])[0] + "</td><td class=\"text-center\">" + '{:,}'.format(int(row[1])) + 
             "</td><td class=\"text-center\">" + row[2] + "</td></tr>\n")
-        final_result.write("<tr><td class=\"text-left\" style=\"background-color: rgb(134, 174, 202);\">&nbsp;</td><td class=\"text-left\">Other</td><td class=\"text-center\">" + '{:,}'.format(total_all()-count) + "</td><td class=\"text-center\">" + str(100-total) + "%</td></tr>")
+        final_result.write("<tr><td class=\"text-left\" style=\"background-color: rgb(134, 174, 202);\">&nbsp;</td><td class=\"text-left\">Other</td><td class=\"text-center\">" + '{:,}'.format(total_all()-count) + "</td><td class=\"text-center\">" + str(100-total) + "</td></tr>")
 
 def create_fr_graph(final_result):
     count = 0
@@ -114,7 +115,7 @@ def create_fr_graph(final_result):
             count += int(row[1])
             total += decimal
 
-    final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")
+    final_result.write(html_helper.get('section_cut'))
     
     final_result.write("""<div class="table-responsive"><table class="table"><caption class="text-left"><strong>Total et pourcentages des visites de provenance étrangère</strong></caption>
     <thead><tr><th class="text-center" style="width: 50px;" scope="col">Couleur de la charte</th><th class="text-left" scope="col">Pays</th><th class="text-center" scope="col">Visites</th><th class="text-center" scope="col">Pourcentages du nombre total de visites</th></tr></thead>
@@ -130,7 +131,7 @@ def create_fr_graph(final_result):
             fr_value = row[2].split(".", 1)[0] + "," + row[2].split(".", 1)[1]
             final_result.write("<tr><td class=\"text-left\" style=\"background-color: rgb" + COLOURS[x] +";\">&nbsp;</td><td class=\"text-left\">"+ re.split('\| |, |\/', row[0])[1] + "</td><td class=\"text-center\">" + '{:,}'.format(int(row[1])).replace(',', ' ') + 
             "</td><td class=\"text-center\">" + fr_value + "</td></tr>\n")
-        final_result.write("<tr><td class=\"text-left\" style=\"background-color: rgb(134, 174, 202);\">&nbsp;</td><td class=\"text-left\">Autres</td><td class=\"text-center\">" + '{:,}'.format(total_all()-count).replace(',', ' ') + "</td><td class=\"text-center\">" + str(100-total).split(".", 1)[0] + "," + row[2].split(".", 1)[1] + "%</td></tr>")
+        final_result.write("<tr><td class=\"text-left\" style=\"background-color: rgb(134, 174, 202);\">&nbsp;</td><td class=\"text-left\">Autres</td><td class=\"text-center\">" + '{:,}'.format(total_all()-count).replace(',', ' ') + "</td><td class=\"text-center\">" + str(100-total).split(".", 1)[0] + "," + row[2].split(".", 1)[1] + "</td></tr>")
 
 def total_all():
     with open("openDataPortal.siteAnalytics.internationalUsageBreakdown.bilingual.csv", 'rb') as f:

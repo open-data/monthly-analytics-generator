@@ -3,6 +3,8 @@
 
 import csv, datetime, yaml
 
+html_helper = yaml.load(open('html_helper.yml', 'r'))
+
 def to_html():
     en_to_html()
     fr_to_html()
@@ -42,7 +44,7 @@ def create_intro_fr(final_result):
     french_date = french_month + lastMonth.strftime(", %Y")
 
     intro = """<section><h2 class="mrgn-tp-xl" id="top10">Les 25 principaux jeux de données téléchargés</h2>
-    <p>Voici les 25 principaux jeux de données téléchargés à partir du portail du gouvernement ouvert en fonction du nombre de téléchargements effectués au cours du mois de <span class="nowrap"><time datetime=\"""" + lastMonth.strftime("%Y-%m-%d") + "\">"+ french_date.encode('utf8') +"</time></span>.</p>" + """"
+    <p>Voici les 25 principaux jeux de données téléchargés à partir du portail du gouvernement ouvert en fonction du nombre de téléchargements effectués au cours du mois de <span class="nowrap"><time datetime=\"""" + lastMonth.strftime("%Y-%m-%d") + "\">"+ french_date.encode('utf8') +"</time></span>.</p> """"
     <div class="table-responsive"><table class="table">
     <thead><tr><th scope="col">Titre</th>
     <th scope="col">Ministère</th>
@@ -60,7 +62,7 @@ def get_rows_en(final_result):
             row = next(monthly_usage, None)
             final_result.write("<tr><th scope=\"row\"><a href=\"/data/en/dataset/" + row[0] + "\">" + row[1] + "</a></th><td>" + row[3] + 
                 "</td><td class=\"text-center\">" + '{:,}'.format(int(row[5])) + "</td></tr>\n")
-        final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")
+        final_result.write(html_helper.get('section_cut'))
 
 def get_rows_fr(final_result):
     final_result_string = []
@@ -73,4 +75,4 @@ def get_rows_fr(final_result):
             row = next(monthly_usage, None)
             final_result.write("<tr><th scope=\"row\"><a href=\"/data/en/dataset/" + row[0] + "\">" + row[2] + "</a></th><td>" + row[4] + 
                 "</td><td class=\"text-center\">" + '{:,}'.format(int(row[5])).replace(',', ' ') + "</td></tr>\n")
-        final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")
+        final_result.write(html_helper.get('section_cut'))

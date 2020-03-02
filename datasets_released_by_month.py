@@ -4,6 +4,8 @@
 import csv, datetime, yaml
 from dateutil import relativedelta
 
+html_helper = yaml.load(open('html_helper.yml', 'r'))
+
 def to_html():
     en_to_html()
     fr_to_html()
@@ -63,27 +65,40 @@ def get_rows_en(final_result):
             + '{:,}'.format(int(row[7])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[8])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[9])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[10])) +"</td><td class=\"text-left\">"
             + '{:,}'.format(int(row[11])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[12])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[13])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[14])) +"</td><td class=\"text-left\">"
             + '{:,}'.format(int(row[15])) +"</td></strong></td></tr>")
-        final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")
+        final_result.write(html_helper.get('section_cut'))
 
 def get_rows_fr(final_result):
     final_result_string = []
+    count = 0
+
+    with open("openDataPortal.siteAnalytics.datasetsByOrgByMonth.bilingual.csv", 'rb') as f:
+        monthly_usage = csv.reader(f)
+        next(monthly_usage, None)
+        
+        for row in monthly_usage:
+            count+=1
 
     with open("openDataPortal.siteAnalytics.datasetsByOrgByMonth.bilingual.csv", 'rb') as f:
         monthly_usage = csv.reader(f)
         next(monthly_usage, None)
         total = 0
 
-        for row in monthly_usage:
-            url = row[1].split("|", 1)[0]
-            org = row[0].split("|", 1)[0]
+        for x in range(count-1):
+            row = next(monthly_usage, None)
+            url = row[1].split("|", 1)[1]
+            org = row[0].split("|", 1)[1]
             final_result.write("<tr><th scope=\"row\"><a href=\"" + url + "\">" + org + "</a></th><td class=\"text-left\">" + '{:,}'.format(int(row[2])).replace(',', ' ') + "</th><td class=\"text-left\">"
             + '{:,}'.format(int(row[3])).replace(',', ' ') +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[4])).replace(',', ' ') +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[5])).replace(',', ' ') +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[6])).replace(',', ' ') +"</td><td class=\"text-left\">" 
             + '{:,}'.format(int(row[7])).replace(',', ' ') +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[8])).replace(',', ' ') +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[9])).replace(',', ' ') +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[10])).replace(',', ' ') +"</td><td class=\"text-left\">"
             + '{:,}'.format(int(row[11])).replace(',', ' ') +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[12])).replace(',', ' ') +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[13])).replace(',', ' ') +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[14])).replace(',', ' ') +"</td><td class=\"text-left\">"
             + '{:,}'.format(int(row[15])).replace(',', ' ') +"</td></tr>")
-            total += int(row[4])
-        final_result.write("<tfoot><tr><th class=\"text-left\" scope=\"row\">Total</th><td class=\"text-center\">" + '{:,}'.format(total).replace(',', ' ') + "</td></tr></tfoot>")
-        final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")
+        row = next(monthly_usage, None)
+        final_result.write("<tr><th scope=\"row\">Total</th><td class=\"text-left\">" + '{:,}'.format(int(row[2])).replace(',', ' ') + "</th><td class=\"text-left\">"
+            + '{:,}'.format(int(row[3])).replace(',', ' ') +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[4])).replace(',', ' ') +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[5])).replace(',', ' ') +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[6])).replace(',', ' ') +"</td><td class=\"text-left\">" 
+            + '{:,}'.format(int(row[7])).replace(',', ' ') +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[8])).replace(',', ' ') +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[9])).replace(',', ' ') +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[10])).replace(',', ' ') +"</td><td class=\"text-left\">"
+            + '{:,}'.format(int(row[11])).replace(',', ' ') +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[12])).replace(',', ' ') +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[13])).replace(',', ' ') +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[14])).replace(',', ' ') +"</td><td class=\"text-left\">"
+            + '{:,}'.format(int(row[15])).replace(',', ' ') +"</td></strong></td></tr>")
+        final_result.write(html_helper.get('section_cut'))
 
 def format_dates_en(final_result):
     dt = datetime.datetime.today()

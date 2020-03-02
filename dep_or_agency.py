@@ -3,6 +3,8 @@
 
 import csv, datetime, yaml
 
+html_helper = yaml.load(open('html_helper.yml', 'r'))
+
 def to_html():
     en_to_html()
     fr_to_html()
@@ -42,7 +44,7 @@ def create_intro_fr(final_result):
     french_date = lastMonth.strftime("%d ") + french_month + lastMonth.strftime(", %Y")
 
     intro = """<section><h2 class="mrgn-tp-xl" id="department">Jeux de données par ministère ou organisme</h2>
-    <p>Le tableau ci-dessous présente des jeux de données brutes tirés du portail du gouvernement ouvert en fonction des ministères et organismes. Ces données ont été recueillies le <span class="nowrap"><time datetime="\"""" + lastMonth.strftime("%Y-%m-%d") +"\">" + french_date.encode('utf8') + """.</time></span> 
+    <p>Le tableau ci-dessous présente des jeux de données brutes tirés du portail du gouvernement ouvert en fonction des ministères et organismes. Ces données ont été recueillies le <span class="nowrap"><time datetime=\"""" + lastMonth.strftime("%Y-%m-%d") +"\">" + french_date.encode('utf8') + """.</time></span> 
     Vous pourrez <a href="#monthly">constater la croissance que nous avons connue depuis le <time datetime="2013-06-18">18&nbsp;juin&nbsp;2013</time></a>.</p>
     <div class="table-responsive"><table class="table">
     <thead><tr><th scope="col">Ministère ou organisme du gouvernement du Canada</th>
@@ -60,7 +62,7 @@ def get_rows_en(final_result):
             final_result.write("<tr><th scope=\"row\"><a href=\"" + row[2] + "\">" + row[0] + "</a></th><td class=\"text-center\">" + '{:,}'.format(int(row[4])) + "</td></tr>\n")
             total += int(row[4])
         final_result.write("<tfoot><tr><th class=\"text-left\" scope=\"row\">Total</th><td class=\"text-center\">" + '{:,}'.format(int(total)) + "</td></tr></tfoot>")
-        final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")
+        final_result.write(html_helper.get('section_cut'))
 
 def get_rows_fr(final_result):
     with open("openDataPortal.siteAnalytics.datasetsByOrg.bilingual.csv", 'rb') as f:
@@ -72,4 +74,4 @@ def get_rows_fr(final_result):
             final_result.write("<tr><th scope=\"row\"><a href=\"" + row[3] + "\">" + row[1] + "</a></th><td class=\"text-center\">" + '{:,}'.format(int(row[4])).replace(',', ' ') + "</td></tr>\n")
             total += int(row[4])
         final_result.write("<tfoot><tr><th class=\"text-left\" scope=\"row\">Total</th><td class=\"text-center\">" + '{:,}'.format(total).replace(',', ' ')  + "</td></tr></tfoot>")
-        final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")
+        final_result.write(html_helper.get('section_cut'))
