@@ -24,7 +24,7 @@ def create_intro_en(final_result):
     lastMonth = first - datetime.timedelta(days=1)
 
     intro = """<section><h2 class="mrgn-tp-xl" id="top10">Top 25 Downloaded Datasets</h2>
-    <p>These are the top 25 downloaded datasets for the month of <span class="nowrap"><time datetime=\"""" + lastMonth.strftime("%Y-%m-%d") + "\">"+ lastMonth.strftime("%B, %Y")  +"</time></span>.</p>" + """"
+    <p>These are the top 25 downloaded datasets for the month of <span class="nowrap"><time datetime=\"""" + lastMonth.strftime("%Y-%m-%d") + "\">"+ lastMonth.strftime("%B, %Y")  +"</time></span>.</p> """"
     <div class="table-responsive"><table class="table">
     <thead><tr><th scope="col">Title</th>
     <th scope="col">Department</th>
@@ -42,7 +42,7 @@ def create_intro_fr(final_result):
     french_date = french_month + lastMonth.strftime(", %Y")
 
     intro = """<section><h2 class="mrgn-tp-xl" id="top10">Les 25 principaux jeux de données téléchargés</h2>
-    <p>Voici les 25 principaux jeux de données téléchargés à partir du portail du gouvernement ouvert en fonction du nombre de téléchargements effectués au cours du mois de <span class="nowrap"><time datetime=\"""" + lastMonth.strftime("%Y-%m-%d") + "\">"+ french_date +"</time></span>.</p>" + """"
+    <p>Voici les 25 principaux jeux de données téléchargés à partir du portail du gouvernement ouvert en fonction du nombre de téléchargements effectués au cours du mois de <span class="nowrap"><time datetime=\"""" + lastMonth.strftime("%Y-%m-%d") + "\">"+ french_date.encode('utf8') +"</time></span>.</p>" + """"
     <div class="table-responsive"><table class="table">
     <thead><tr><th scope="col">Titre</th>
     <th scope="col">Ministère</th>
@@ -56,8 +56,9 @@ def get_rows_en(final_result):
         monthly_usage = csv.reader(f)
         next(monthly_usage, None)
 
-        for row in monthly_usage:
-            final_result.write("<tr><th scope=\"row\"\"><a href=\"/data/en/dataset/" + row[0] + ">" + row[1] + "</a></th><td>" + row[3] + 
+        for x in range(25):
+            row = next(monthly_usage, None)
+            final_result.write("<tr><th scope=\"row\"><a href=\"/data/en/dataset/" + row[0] + "\">" + row[1] + "</a></th><td>" + row[3] + 
                 "</td><td class=\"text-center\">" + '{:,}'.format(int(row[5])) + "</td></tr>\n")
         final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")
 
@@ -68,7 +69,8 @@ def get_rows_fr(final_result):
         monthly_usage = csv.reader(f)
         next(monthly_usage, None)
 
-        for row in monthly_usage:
-            final_result.write("<tr><th scope=\"row\"\"><a href=\"/data/en/dataset/" + row[0] + ">" + row[2] + "</a></th><td>" + row[4] + 
+        for x in range(25):
+            row = next(monthly_usage, None)
+            final_result.write("<tr><th scope=\"row\"><a href=\"/data/en/dataset/" + row[0] + "\">" + row[2] + "</a></th><td>" + row[4] + 
                 "</td><td class=\"text-center\">" + '{:,}'.format(int(row[5])).replace(',', ' ') + "</td></tr>\n")
         final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")

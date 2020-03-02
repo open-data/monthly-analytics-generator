@@ -1,5 +1,5 @@
-# This reads visits from openDataPortal.siteAnalytics.internationalUsageBreakdown.bilingual.csv
 # coding=utf-8
+# This reads visits from openDataPortal.siteAnalytics.internationalUsageBreakdown.bilingual.csv
 
 import csv
 import re

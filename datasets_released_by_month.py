@@ -34,13 +34,22 @@ def create_intro_fr(final_result):
 
 def get_rows_en(final_result):
     final_result_string = []
+    count = 0
+
+    with open("openDataPortal.siteAnalytics.datasetsByOrgByMonth.bilingual.csv", 'rb') as f:
+        monthly_usage = csv.reader(f)
+        next(monthly_usage, None)
+        
+        for row in monthly_usage:
+            count+=1
 
     with open("openDataPortal.siteAnalytics.datasetsByOrgByMonth.bilingual.csv", 'rb') as f:
         monthly_usage = csv.reader(f)
         next(monthly_usage, None)
         total = 0
 
-        for row in monthly_usage:
+        for x in range(count-1):
+            row = next(monthly_usage, None)
             url = row[1].split("|", 1)[0]
             org = row[0].split("|", 1)[0]
             final_result.write("<tr><th scope=\"row\"><a href=\"" + url + "\">" + org + "</a></th><td class=\"text-left\">" + '{:,}'.format(int(row[2])) + "</th><td class=\"text-left\">"
@@ -48,8 +57,12 @@ def get_rows_en(final_result):
             + '{:,}'.format(int(row[7])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[8])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[9])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[10])) +"</td><td class=\"text-left\">"
             + '{:,}'.format(int(row[11])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[12])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[13])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[14])) +"</td><td class=\"text-left\">"
             + '{:,}'.format(int(row[15])) +"</td></tr>")
-            total += int(row[4])
-        final_result.write("<tfoot><tr><th class=\"text-left\" scope=\"row\">Total</th><td class=\"text-center\">" + str(total) + "</td></tr></tfoot>")
+        row = next(monthly_usage, None)
+        final_result.write("<tr><th scope=\"row\">Total</th><td class=\"text-left\">" + '{:,}'.format(int(row[2])) + "</th><td class=\"text-left\">"
+            + '{:,}'.format(int(row[3])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[4])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[5])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[6])) +"</td><td class=\"text-left\">" 
+            + '{:,}'.format(int(row[7])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[8])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[9])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[10])) +"</td><td class=\"text-left\">"
+            + '{:,}'.format(int(row[11])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[12])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[13])) +"</td><td class=\"text-left\">" + '{:,}'.format(int(row[14])) +"</td><td class=\"text-left\">"
+            + '{:,}'.format(int(row[15])) +"</td></strong></td></tr>")
         final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")
 
 def get_rows_fr(final_result):
@@ -105,7 +118,7 @@ def format_dates_fr(final_result):
 
     final_result_string = []
 
-    final_result_string.append("<th scope=\"col\">Avant <time datetime=\"" + lastYear.strftime("%Y-%m-%d") + "\"></time>" + french_date +"</th>\n")
+    final_result_string.append("<th scope=\"col\">Avant <time datetime=\"" + lastYear.strftime("%Y-%m-%d") + "\"></time>" + french_date.encode('utf8') +"</th>\n")
     for x in range(0, 12):
         time_date = (datetime.datetime.strptime(str(lastYear + relativedelta.relativedelta(months=x)), '%Y-%m-%d %H:%M:%S.%f'))
         string_date = time_date.strftime("%Y-%m").split(" ", 1)[0]

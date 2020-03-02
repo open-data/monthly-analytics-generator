@@ -42,7 +42,7 @@ def create_intro_fr(final_result):
     french_date = lastMonth.strftime("%d ") + french_month + lastMonth.strftime(", %Y")
 
     intro = """<section><h2 class="mrgn-tp-xl" id="department">Jeux de données par ministère ou organisme</h2>
-    <p>Le tableau ci-dessous présente des jeux de données brutes tirés du portail du gouvernement ouvert en fonction des ministères et organismes. Ces données ont été recueillies le <span class="nowrap"><time datetime="\"""" + lastMonth.strftime("%Y-%m-%d") +"\">" + french_date + """.</time></span> 
+    <p>Le tableau ci-dessous présente des jeux de données brutes tirés du portail du gouvernement ouvert en fonction des ministères et organismes. Ces données ont été recueillies le <span class="nowrap"><time datetime="\"""" + lastMonth.strftime("%Y-%m-%d") +"\">" + french_date.encode('utf8') + """.</time></span> 
     Vous pourrez <a href="#monthly">constater la croissance que nous avons connue depuis le <time datetime="2013-06-18">18&nbsp;juin&nbsp;2013</time></a>.</p>
     <div class="table-responsive"><table class="table">
     <thead><tr><th scope="col">Ministère ou organisme du gouvernement du Canada</th>
