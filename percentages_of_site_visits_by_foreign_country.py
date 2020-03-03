@@ -69,7 +69,7 @@ def get_country_fr(final_result):
 
 def create_en_graph(final_result):
     count = 0
-    total = 0
+    total = 0.0
 
     with open("openDataPortal.siteAnalytics.internationalUsageBreakdown.bilingual.csv", 'rb') as f:
         country_csv = csv.reader(f)
@@ -78,8 +78,9 @@ def create_en_graph(final_result):
         decimal = 0.0
 
         for x in range(10):
+            big_total = total_all()
             row = next(country_csv, None)
-            decimal = float(row[2].split("%", 1)[0])
+            decimal = round(float((float(row[1])/big_total)*100), 2)
             final_result.write("<td class=\"text-center\">"+ str(decimal) + "</td>\n")
             count += int(row[1])
             total += decimal
@@ -89,7 +90,7 @@ def create_en_graph(final_result):
     
     final_result.write("""<div class="table-responsive"><table class="table"><caption class="text-left"><strong>Total and percentages of Site Visits by Foreign Country</strong></caption>
     <thead><tr><th class="text-center" style="width: 50px;" scope="col">Chart colour</th><th class="text-left" scope="col">Country</th><th class="text-center" scope="col">Visits</th><th class="text-center" scope="col">Percentage of Total Visits</th></tr></thead>
-    <tfoot><tr><th class="text-left" colspan="2" scope="row">Total Number of Visits by Foreign Countries</th><td class="text-center"><strong>""" + '{:,}'.format(total_all()) + """</strong></td><td>&nbsp;</td></tr></tfoot><tbody>""")
+    <tfoot><tr><th class="text-left" colspan="2" scope="row">Total Number of Visits by Foreign Countries</th><td class="text-center"><strong>""" + '{:,}'.format(big_total) + """</strong></td><td>&nbsp;</td></tr></tfoot><tbody>""")
 
     with open("openDataPortal.siteAnalytics.internationalUsageBreakdown.bilingual.csv", 'rb') as f:
         country_csv = csv.reader(f)
@@ -112,8 +113,9 @@ def create_fr_graph(final_result):
         decimal = 0.0
 
         for x in range(10):
+            big_total = total_all()
             row = next(country_csv, None)
-            decimal = float(row[2].split("%", 1)[0])
+            decimal = round(float(((float(row[1]))/big_total)*100), 2)
             final_result.write("<td class=\"text-center\">"+ str(decimal) + "</td>\n")
             count += int(row[1])
             total += decimal
@@ -123,7 +125,7 @@ def create_fr_graph(final_result):
     
     final_result.write("""<div class="table-responsive"><table class="table"><caption class="text-left"><strong>Total et pourcentages des visites de provenance étrangère</strong></caption>
     <thead><tr><th class="text-center" style="width: 50px;" scope="col">Couleur de la charte</th><th class="text-left" scope="col">Pays</th><th class="text-center" scope="col">Visites</th><th class="text-center" scope="col">Pourcentages du nombre total de visites</th></tr></thead>
-    <tfoot><tr><th class="text-left" colspan="2" scope="row">Nombre total de visites de provenance étrangère</th><td class="text-center"><strong>""" + '{:,}'.format(total_all()).replace(',', ' ') + """</strong></td><td class="text-center">&nbsp;</td></tr></tfoot><tbody>""")
+    <tfoot><tr><th class="text-left" colspan="2" scope="row">Nombre total de visites de provenance étrangère</th><td class="text-center"><strong>""" + '{:,}'.format(big_total).replace(',', ' ') + """</strong></td><td class="text-center">&nbsp;</td></tr></tfoot><tbody>""")
 
     with open("openDataPortal.siteAnalytics.internationalUsageBreakdown.bilingual.csv", 'rb') as f:
         country_csv = csv.reader(f)

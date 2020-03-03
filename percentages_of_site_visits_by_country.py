@@ -77,7 +77,7 @@ def create_en_graph(final_result):
 
         for x in range(10):
             row = next(country_csv, None)
-            decimal = float(row[2].split("%", 1)[0])
+            decimal = round(float(row[2].split("%", 1)[0]), 2)
             final_result.write("<td class=\"text-center\">"+ str(decimal) + "</td>\n")
             count += int(row[1])
             total += decimal
@@ -109,7 +109,7 @@ def create_fr_graph(final_result):
 
         for x in range(10):
             row = next(country_csv, None)
-            decimal = float(row[2].split("%", 1)[0])
+            decimal = round(float(row[2].split("%", 1)[0]), 2)
             final_result.write("<td class=\"text-center\">"+ str(decimal) + "</td>\n")
             count += int(row[1])
             total += decimal
