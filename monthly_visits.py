@@ -97,7 +97,7 @@ def format_dates_fr(final_result):
         next(monthly_usage, None)
 
         for row in monthly_usage:
-            final_result_string.append("<th scope=\"col\"><time datetime=" + row[0] + "-" + row[1] + ">" + str(MONTHS[int(row[1])-1]) + "-" + row[0] + "</time></th>\n")
+            final_result_string.append("<th scope=\"col\"><time datetime=" + row[0] + "-" + row[1] + ">" + str(MONTHS[int(row[1])-1]) + " -" + row[0] + "</time></th>\n")
         final_result_string.reverse()
         del final_result_string[0:len(final_result_string) - 12]
         for line in final_result_string:
