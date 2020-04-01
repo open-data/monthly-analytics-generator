@@ -127,7 +127,7 @@ def format_dates_fr(final_result):
 
     months = yaml.load(open('months.yml', 'r'))
     french_month = months.get('short_form').get(lastMonth.strftime("%b"))
-    french_date = french_month + lastMonth.strftime("-%Y")
+    french_date = french_month + lastMonth.strftime("- %Y")
 
     final_result_string = []
 
@@ -136,7 +136,7 @@ def format_dates_fr(final_result):
         time_date = (datetime.datetime.strptime(str(lastYear + relativedelta.relativedelta(months=x)), '%Y-%m-%d %H:%M:%S.%f'))
         string_date = time_date.strftime("%Y-%m").split(" ", 1)[0]
         french_date = months.get('short_form').get(time_date.strftime("%b"))
-        word_date = french_date + time_date.strftime("-%Y")
+        word_date = french_date + time_date.strftime("- %Y")
 
         final_result_string.append("<th scope=\"col\"><time datetime=\"" + string_date + "\">" + word_date.encode('utf8') + "</time></th>\n")
     for line in final_result_string:
