@@ -19,8 +19,10 @@ This generates the HTML for the monthly analytics found at https://open.canada.c
 
 3) run `pip install pyyaml` _(required once, note: pip2)_
 
-4) run `python2 create_html_analytics.py`
+4) run `pip install python-dateutil` _(required once, note: pip2)_
 
-5) Copy all HTML from the final **two** `.txt` files generated and paste this in the Drupal `source` section of the editing admin on https://open.canada.ca/en/content/open-government-analytics. Each file contains one language, so paste the HTML from the file ending in `en` on the English page, and the HTML from the file ending in `fr` on the French page.
+5) run `python2 create_html_analytics.py`
 
-6) Submit these as **drafts** first to ensure everything looks correct. Once confirmed, save the pages as newly published content.
+6) Copy all HTML from the final **two** `.txt` files generated and paste this in the Drupal `source` section of the editing admin on https://open.canada.ca/en/content/open-government-analytics. Each file contains one language, so paste the HTML from the file ending in `en` on the English page, and the HTML from the file ending in `fr` on the French page.
+
+7) Submit these as **drafts** first to ensure everything looks correct. Once confirmed, save the pages as newly published content.
