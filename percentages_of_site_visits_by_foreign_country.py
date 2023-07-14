@@ -87,9 +87,8 @@ def create_en_graph(final_result):
             count += int(row[1])
             total += decimal
 
-    final_result.write("<td class=\"text-center\">" + str(100-total) + "</td>")
-    final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")
-    
+    final_result.write("<td class=\"text-center\">" + str(round (100-total, 2)) + "</td>")
+    final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")    
     final_result.write("""<div class="table-responsive"><table class="table"><caption class="text-left"><strong>Total and percentages of Site Visits by Foreign Country</strong></caption>
     <thead><tr><th class="text-center" style="width: 50px;" scope="col">Chart colour</th><th class="text-left" scope="col">Country</th><th class="text-center" scope="col">Visits</th><th class="text-center" scope="col">Percentage of Total Visits</th></tr></thead>
     <tfoot><tr><th class="text-left" colspan="2" scope="row">Total Number of Visits by Foreign Countries</th><td class="text-center"><strong>""" + '{:,}'.format(big_total) + """</strong></td><td>&nbsp;</td></tr></tfoot><tbody>""")
@@ -122,7 +121,7 @@ def create_fr_graph(final_result):
             count += int(row[1])
             total += decimal
 
-    final_result.write("<td class=\"text-center\">" + str(100-total) + "</td>")
+    final_result.write("<td class=\"text-center\">" + str(round (100-total, 2)) + "</td>")    
     final_result.write("</tbody></table></div><div class=\"clearfix\">&nbsp;</div></section>")
     
     final_result.write("""<div class="table-responsive"><table class="table"><caption class="text-left"><strong>Total et pourcentages des visites de provenance étrangère</strong></caption>
@@ -140,7 +139,7 @@ def create_fr_graph(final_result):
             fr_value = row[2].split(".", 1)[0] + "," + row[2].split(".", 1)[1]
             final_result.write("<tr><td class=\"text-left\" style=\"background-color: rgb" + COLOURS[x] +";\">&nbsp;</td><td class=\"text-left\">"+ re.split('\| |, |\/', row[0])[1] + "</td><td class=\"text-center\">" + '{:,}'.format(int(row[1])).replace(',', ' ') + 
             "</td><td class=\"text-center\">" + fr_value + "</td></tr>\n")
-        final_result.write("<tr><td class=\"text-left\" style=\"background-color: rgb(134, 174, 202);\">&nbsp;</td><td class=\"text-left\">Autres</td><td class=\"text-center\">" + '{:,}'.format(total_all()-count).replace(',', ' ') + "</td><td class=\"text-center\">" + str(100-total).split(".", 1)[0] + "," + row[2].split(".", 1)[1] + "</td></tr>")
+        final_result.write("<tr><td class=\"text-left\" style=\"background-color: rgb(134, 174, 202);\">&nbsp;</td><td class=\"text-left\">Autres</td><td class=\"text-center\">" + '{:,}'.format(total_all()-count).replace(',', ' ') + "</td><td class=\"text-center\">" + str(round(100-total,2)).split(".", 1)[0] + "," + str(round(100-total,2)).split(".", 1)[1] + "%</td></tr>")
 
 def total_all():
     with open("openDataPortal.siteAnalytics.internationalUsageBreakdown.bilingual.csv", 'r', encoding='utf-8') as f:
