@@ -1,0 +1,4 @@
+*.code-workspace
+
+# Resources
+openDataPortal.*.csv
