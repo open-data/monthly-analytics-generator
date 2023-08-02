@@ -16,6 +16,7 @@ def en_to_html():
 
 def fr_to_html():
     final_result = open("monthly_downloads_fr.txt", "w")
+    create_intro_fr(final_result)
     format_dates_fr(final_result)
     get_downloads_fr(final_result)
     final_result.close()
