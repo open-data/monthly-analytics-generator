@@ -2,7 +2,11 @@
 # coding=utf-8
 
 import csv, yaml
-
+from datetime import *
+today = datetime.today()
+last_day = (today - timedelta(days=today.day)).strftime('%Y-%m-%d')
+y, m, d = last_day.split("-")
+province_link ="".join(["openDataPortal.siteAnalytics.provincialUsageBreakdown.bilingual",m,y,".csv"])
 COLOURS = ["(143, 31, 23)", "(240, 131, 0)", "(36, 124, 168)", "(91, 46, 108)", "(38, 83, 38)",
 "(18, 64, 86)", "(85, 85, 85)", "(247, 212, 0)", "(217, 59, 50)", "(62, 134, 62)", "(134, 174, 202)"
 ,"(35, 68, 126)", "(153, 153, 153)", "(237, 194, 64)"]
@@ -45,7 +49,7 @@ def get_prov_terr_en(final_result):
     final_result_string = []
     prov_terr_en = ""
 
-    with open("openDataPortal.siteAnalytics.provincialUsageBreakdown.bilingual.csv", 'r') as f:
+    with open(province_link, 'r') as f:
         monthly_usage = csv.reader(f)
         next(monthly_usage, None)
 
@@ -59,7 +63,7 @@ def get_prov_terr_fr(final_result):
     final_result_string = []
     prov_terr_fr = ""
 
-    with open("openDataPortal.siteAnalytics.provincialUsageBreakdown.bilingual.csv", 'r', encoding='utf-8') as f:
+    with open(province_link, 'r', encoding='utf-8') as f:
         monthly_usage = csv.reader(f)
         next(monthly_usage, None)
 
@@ -71,7 +75,7 @@ def get_prov_terr_fr(final_result):
 def create_en_graph(final_result):
     count = 0
 
-    with open("openDataPortal.siteAnalytics.provincialUsageBreakdown.bilingual.csv", 'r', encoding='utf-8') as f:
+    with open(province_link, 'r', encoding='utf-8') as f:
         monthly_usage = csv.reader(f)
         next(monthly_usage, None)
         decimal = 0.0
@@ -87,7 +91,7 @@ def create_en_graph(final_result):
     <thead><tr><th class="text-center" style="width: 50px;" scope="col">Chart colour</th><th class="text-left" scope="col">Region</th><th class="text-center" scope="col">Visits</th><th class="text-center" scope="col">Percentage of Total Visits</th></tr></thead>
     <tfoot><tr><th class="text-left" colspan="2" scope="row">Total Number of Visits in Canada</th><td class="text-center"><strong>""" + '{:,}'.format(count) + """</strong></td><td class="text-center">&nbsp;</td></tr></tfoot><tbody>""")
 
-    with open("openDataPortal.siteAnalytics.provincialUsageBreakdown.bilingual.csv", 'r', encoding='utf-8') as f:
+    with open(province_link, 'r', encoding='utf-8') as f:
         monthly_usage = csv.reader(f)
         next(monthly_usage, None)
         count = 0
@@ -100,7 +104,7 @@ def create_en_graph(final_result):
 
 def create_fr_graph(final_result):
     count = 0
-    with open("openDataPortal.siteAnalytics.provincialUsageBreakdown.bilingual.csv", 'r', encoding='utf-8') as f:
+    with open(province_link, 'r', encoding='utf-8') as f:
         monthly_usage = csv.reader(f)
         next(monthly_usage, None)
         decimal = 0.0
@@ -116,7 +120,7 @@ def create_fr_graph(final_result):
     <thead><tr><th class="text-center" style="width: 50px;" scope="col">Couleur de la charte</th><th class="text-left" scope="col">Région</th><th class="text-center" scope="col">Visites</th><th class="text-center" scope="col">Pourcentages du nombre total de visites</th></tr></thead>
     <tfoot><tr><th class="text-left" colspan="2" scope="row">Nombre total de visiteurs au Canada</th><td class="text-center"><strong>""" + '{:,}'.format(count).replace(',', ' ') + """</strong></td><td class="text-center">&nbsp;</td></tr></tfoot><tbody>""")
 
-    with open("openDataPortal.siteAnalytics.provincialUsageBreakdown.bilingual.csv", 'r', encoding='utf-8') as f:
+    with open(province_link, 'r', encoding='utf-8') as f:
         monthly_usage = csv.reader(f)
         next(monthly_usage, None)
         fr_value = ""

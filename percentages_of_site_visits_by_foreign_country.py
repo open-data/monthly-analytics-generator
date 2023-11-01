@@ -2,7 +2,11 @@
 # This reads visits from openDataPortal.siteAnalytics.internationalUsageBreakdown.bilingual.csv
 
 import csv, re, yaml
-
+from datetime import *
+today = datetime.today()
+last_day = (today - timedelta(days=today.day)).strftime('%Y-%m-%d')
+y, m, d = last_day.split("-")
+country_link = "".join(["openDataPortal.siteAnalytics.internationalUsageBreakdown.bilingual",m,y,".csv"])
 COLOURS = ["(143, 31, 23)", "(240, 131, 0)", "(36, 124, 168)", "(91, 46, 108)", "(38, 83, 38)",
 "(18, 64, 86)", "(85, 85, 85)", "(247, 212, 0)", "(217, 59, 50)", "(62, 134, 62)"]
 
@@ -43,7 +47,7 @@ def create_fr_intro(final_result):
 def get_country_en(final_result):
     country_en = ""
 
-    with open("openDataPortal.siteAnalytics.internationalUsageBreakdown.bilingual.csv", 'r') as f:
+    with open(country_link, 'r') as f:
         country_csv = csv.reader(f)
         next(country_csv, None)
         next(country_csv, None)
@@ -58,7 +62,7 @@ def get_country_en(final_result):
 def get_country_fr(final_result):
     country_fr = ""
 
-    with open("openDataPortal.siteAnalytics.internationalUsageBreakdown.bilingual.csv", 'r', encoding='utf-8') as f:
+    with open(country_link, 'r', encoding='utf-8') as f:
         country_csv = csv.reader(f)
         next(country_csv, None)
         next(country_csv, None)
@@ -73,7 +77,7 @@ def create_en_graph(final_result):
     count = 0
     total = 0.0
 
-    with open("openDataPortal.siteAnalytics.internationalUsageBreakdown.bilingual.csv", 'r') as f:
+    with open(country_link, 'r') as f:
         country_csv = csv.reader(f)
         next(country_csv, None)
         next(country_csv, None)
@@ -93,7 +97,7 @@ def create_en_graph(final_result):
     <thead><tr><th class="text-center" style="width: 50px;" scope="col">Chart colour</th><th class="text-left" scope="col">Country</th><th class="text-center" scope="col">Visits</th><th class="text-center" scope="col">Percentage of Total Visits</th></tr></thead>
     <tfoot><tr><th class="text-left" colspan="2" scope="row">Total Number of Visits by Foreign Countries</th><td class="text-center"><strong>""" + '{:,}'.format(big_total) + """</strong></td><td>&nbsp;</td></tr></tfoot><tbody>""")
 
-    with open("openDataPortal.siteAnalytics.internationalUsageBreakdown.bilingual.csv", 'r') as f:
+    with open(country_link, 'r') as f:
         country_csv = csv.reader(f)
         next(country_csv, None)
         next(country_csv, None)
@@ -102,12 +106,12 @@ def create_en_graph(final_result):
             row = next(country_csv, None)
             final_result.write("<tr><td class=\"text-left\" style=\"background-color: rgb" + COLOURS[x] +";\">&nbsp;</td><td class=\"text-left\">"+ re.split('\| |, |\/', row[0])[0] + "</td><td class=\"text-center\">" + '{:,}'.format(int(row[1])) + 
             "</td><td class=\"text-center\">" + row[2] + "</td></tr>\n")
-        final_result.write("<tr><td class=\"text-left\" style=\"background-color: rgb(134, 174, 202);\">&nbsp;</td><td class=\"text-left\">Other</td><td class=\"text-center\">" + '{:,}'.format(total_all()-count) + "</td><td class=\"text-center\">" + str(100-total) + "%</td></tr>")
+        final_result.write("<tr><td class=\"text-left\" style=\"background-color: rgb(134, 174, 202);\">&nbsp;</td><td class=\"text-left\">Other</td><td class=\"text-center\">" + '{:,}'.format(total_all()-count) + "</td><td class=\"text-center\">" + str(round(100-total,2)) + "%</td></tr>")
 
 def create_fr_graph(final_result):
     count = 0
     total = 0
-    with open("openDataPortal.siteAnalytics.internationalUsageBreakdown.bilingual.csv", 'r', encoding='utf-8') as f:
+    with open(country_link, 'r', encoding='utf-8') as f:
         country_csv = csv.reader(f)
         next(country_csv, None)
         next(country_csv, None)
@@ -128,7 +132,7 @@ def create_fr_graph(final_result):
     <thead><tr><th class="text-center" style="width: 50px;" scope="col">Couleur de la charte</th><th class="text-left" scope="col">Pays</th><th class="text-center" scope="col">Visites</th><th class="text-center" scope="col">Pourcentages du nombre total de visites</th></tr></thead>
     <tfoot><tr><th class="text-left" colspan="2" scope="row">Nombre total de visites de provenance étrangère</th><td class="text-center"><strong>""" + '{:,}'.format(big_total).replace(',', ' ') + """</strong></td><td class="text-center">&nbsp;</td></tr></tfoot><tbody>""")
 
-    with open("openDataPortal.siteAnalytics.internationalUsageBreakdown.bilingual.csv", 'r', encoding='utf-8') as f:
+    with open(country_link, 'r', encoding='utf-8') as f:
         country_csv = csv.reader(f)
         next(country_csv, None)
         next(country_csv, None)
@@ -142,7 +146,7 @@ def create_fr_graph(final_result):
         final_result.write("<tr><td class=\"text-left\" style=\"background-color: rgb(134, 174, 202);\">&nbsp;</td><td class=\"text-left\">Autres</td><td class=\"text-center\">" + '{:,}'.format(total_all()-count).replace(',', ' ') + "</td><td class=\"text-center\">" + str(round(100-total,2)).split(".", 1)[0] + "," + str(round(100-total,2)).split(".", 1)[1] + "%</td></tr>")
 
 def total_all():
-    with open("openDataPortal.siteAnalytics.internationalUsageBreakdown.bilingual.csv", 'r', encoding='utf-8') as f:
+    with open(country_link, 'r', encoding='utf-8') as f:
         country_csv = csv.reader(f)
         next(country_csv, None)
         next(country_csv, None)
