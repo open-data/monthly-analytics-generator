@@ -9,12 +9,13 @@ province = "".join ([resource_link,"e06f06a9-d897-4a35-9b73-4c2bc1c2d5cf/downloa
                          ,m,y,".csv"]) 
 country = "".join ([resource_link,"b52ee0b2-f2be-4bc5-a27a-db93a228d38b/download/opendataportal.siteanalytics.internationalusagebreakdown.bilingual"
                         ,m,y,".csv"])
-urls = ["https://open.canada.ca/data/dataset/2916fad5-ebcc-4c86-b0f3-4f619b29f412/resource/02a92b0f-b26d-4fbd-9601-d27651703715/download/opendataportal.siteanalytics.totalmonthlyusage.bilingual.csv",
+urls = [resource_link+"02a92b0f-b26d-4fbd-9601-d27651703715/download/opendataportal.siteanalytics.totalmonthlyusage.bilingual.csv",
 province,
 country,
-"https://open.canada.ca/data/dataset/2916fad5-ebcc-4c86-b0f3-4f619b29f412/resource/5a1b343d-2fea-4c31-8652-f77506e3ea37/download/opendataportal.siteanalytics.datasetsbyorg.bilingual.csv",
-"https://open.canada.ca/data/dataset/2916fad5-ebcc-4c86-b0f3-4f619b29f412/resource/f09148f9-a09b-46ec-bf5b-52f26720f3f3/download/opendataportal.siteanalytics.datasetsbyorgbymonth.bilingual.csv",
-"https://open.canada.ca/data/dataset/2916fad5-ebcc-4c86-b0f3-4f619b29f412/resource/ba980e38-f110-466a-ad92-3ee0d5a60d49/download/opendataportal.siteanalytics.top100datasets.bilingual.csv"]
+resource_link+"5a1b343d-2fea-4c31-8652-f77506e3ea37/download/opendataportal.siteanalytics.datasetsbyorg.bilingual.csv",
+
+resource_link+"ba980e38-f110-466a-ad92-3ee0d5a60d49/download/opendataportal.siteanalytics.top100datasets.bilingual.csv",
+resource_link+"d9138bac-8f9a-42e3-ac7c-450420c5d272/download/opendataportal.siteanalytics.datasetsbyorgbymonth.bilingual_new.csv"]
   
 # retreive urls from the linkFile
 # with open ('linkFile.txt') as f:
@@ -46,4 +47,4 @@ def filedownload():
 def csv_files_remove():
     for element in urls:
      os.remove(element.split('/')[-1])
-filedownload()
+
